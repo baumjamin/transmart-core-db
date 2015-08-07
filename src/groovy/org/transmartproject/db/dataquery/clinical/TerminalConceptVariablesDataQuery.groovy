@@ -61,10 +61,12 @@ class TerminalConceptVariablesDataQuery {
             projections {
                 property 'patient.id'
                 property 'conceptCode'
-                property 'valueType'
-                property 'textValue'
-                property 'numberValue'
+                max 'valueType'
+                max 'textValue'
+                avg 'numberValue'
             }
+            groupProperty('patient.id')
+            groupProperty('conceptCode')
             order 'patient.id'
             order 'conceptCode'
         }

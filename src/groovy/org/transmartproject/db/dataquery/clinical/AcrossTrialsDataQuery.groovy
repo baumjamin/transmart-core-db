@@ -63,10 +63,12 @@ class AcrossTrialsDataQuery {
             projections {
                 property 'patient.id'
                 property 'modifierCd'
-                property 'valueType'
-                property 'textValue'
-                property 'numberValue'
+                max 'valueType'
+                max 'textValue'
+                avg 'numberValue'
             }
+            groupProperty('patient.id')
+            groupProperty('conceptCode')
             order 'patient.id'
             order 'modifierCd'
         }
