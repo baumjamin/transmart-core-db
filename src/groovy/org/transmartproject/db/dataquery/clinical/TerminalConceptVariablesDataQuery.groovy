@@ -64,6 +64,8 @@ class TerminalConceptVariablesDataQuery {
                 property 'valueType'
                 property 'textValue'
                 property 'numberValue'
+				property 'startDate'
+				//TODO baumjamin
             }
             order 'patient.id'
             order 'conceptCode'

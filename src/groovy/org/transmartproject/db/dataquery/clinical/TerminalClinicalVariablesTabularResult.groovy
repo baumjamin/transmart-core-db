@@ -41,6 +41,7 @@ class TerminalClinicalVariablesTabularResult extends
     public static final int VALUE_TYPE_COLUMN_INDEX   = 2
     public static final int TEXT_VALUE_COLUMN_INDEX   = 3
     public static final int NUMBER_VALUE_COLUMN_INDEX = 4
+	public static final int START_DATE_COLUMN_INDEX = 5
 
     /* XXX: this class hierarchy needs some refactoring, we're depending on
      * implementation details of CollectingTabularResults and skipping quite
@@ -119,7 +120,7 @@ class TerminalClinicalVariablesTabularResult extends
     private PatientIdAnnotatedDataRow finalizePatientGroup(List<Object[]> list) {
         Map<Integer, TerminalClinicalVariable> indexToColumn = localIndexMap.inverse()
 
-        Object[] transformedData = new Object[localIndexMap.size()]
+        Object[] transformedData = new Object[localIndexMap.size()+1]
 
         /* don't take Object[] otherwise would be vararg func and
          * further unwrapping needed */
@@ -129,7 +130,10 @@ class TerminalClinicalVariablesTabularResult extends
                 return
             }
             Object[] rawRow = (Object[])rawRowUntyped
-
+			log.warn("RAWROW")
+			rawRow.each {
+				println it
+			}
             /* find out the position of this concept in the final result */
             Integer index = codeToIndex[rawRow[CODE_COLUMN_INDEX] as String]
             if (index == null) {
@@ -148,6 +152,10 @@ class TerminalClinicalVariablesTabularResult extends
             }
 
             transformedData[index] = getVariableValue(rawRow)
+			transformedData[index+1] = getStartDate(rawRow)
+			
+			log.warn(index + " transformedData[index] " +transformedData[index])
+			log.warn(" transformedData[index] " + (transformedData[index+1] as String))
         }
 
         new PatientIdAnnotatedDataRow(
@@ -165,4 +173,7 @@ class TerminalClinicalVariablesTabularResult extends
             rawRow[NUMBER_VALUE_COLUMN_INDEX]
         }
     }
+	private Object getStartDate(Object[] rawRow) {
+			rawRow[START_DATE_COLUMN_INDEX]
+	}
 }

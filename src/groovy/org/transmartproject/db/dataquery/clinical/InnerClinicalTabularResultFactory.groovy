@@ -44,6 +44,9 @@ class InnerClinicalTabularResultFactory {
             SessionImplementor session,
             Iterable<PatientDimension> patients,
             List<TerminalClinicalVariable> relevantVariables) {
+			log.warn("GROUP")
+			log.warn(group)
+			log.warn(relevantVariables.dump())
         switch (group) {
             case TerminalConceptVariable.GROUP_NAME:
                 def query = new TerminalConceptVariablesDataQuery(
@@ -51,7 +54,7 @@ class InnerClinicalTabularResultFactory {
                         patients:          patients,
                         clinicalVariables: relevantVariables)
                 query.init()
-
+				log.warn(query.dump())
                 return new TerminalClinicalVariablesTabularResult(
                                 query.openResultSet(), relevantVariables)
             case AcrossTrialsTerminalVariable.GROUP_NAME:

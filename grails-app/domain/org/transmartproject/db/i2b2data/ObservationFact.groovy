@@ -72,7 +72,7 @@ class ObservationFact implements Serializable {
         textValue    column: 'tval_char'
         numberValue  column: 'nval_num'
         valueFlag    column: 'valueflag_cd'
-
+		startDate 	 column: 'start_date'
         version false
     }
 

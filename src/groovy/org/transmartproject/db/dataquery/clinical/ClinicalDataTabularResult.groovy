@@ -53,7 +53,7 @@ class ClinicalDataTabularResult implements TabularResult<TerminalClinicalVariabl
 
         def indexOwnerBuilder  = ImmutableMap.builder()
         def indicesListBuilder = ImmutableList.builder()
-
+				
         tabResults.each { TerminalClinicalVariablesTabularResult tabResult ->
             tabResult.indicesList.each { TerminalClinicalVariable variable ->
                 indexOwnerBuilder.put variable, tabResult

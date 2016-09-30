@@ -53,6 +53,7 @@ class ClinicalDataResourceService implements ClinicalDataResource {
     @Override
     TabularResult<ClinicalVariableColumn, PatientRow> retrieveData(List<QueryResult> queryResults,
                                            List<ClinicalVariable> variables) {
+										   log.warn("RETRIEVEDATA")
         def patientQuery = new PatientQuery([
                 new PatientSetsConstraint(queryResults)
         ])
@@ -89,20 +90,22 @@ class ClinicalDataResourceService implements ClinicalDataResource {
             def patientMap = Maps.newTreeMap()
 
             patients.each { patientMap[it.id] = it }
-
+			log.warn("---1")
             List<TerminalConceptVariable> flattenedVariables = []
             flattenClinicalVariables(flattenedVariables, variables)
-
+			log.warn("---2")
             def intermediateResults = []
             if (patientMap) {
                 intermediateResults = innerResultFactory.
                         createIntermediateResults(session,
                                 patients, flattenedVariables)
+						log.warn("intermediateResults")
+						log.warn(intermediateResults.dump())
             } else {
                 log.info("No patients passed to retrieveData() with" +
                         "variables $variables; will skip main queries")
             }
-
+			log.warn("---3")
             new ClinicalDataTabularResult(
                     session, intermediateResults, patientMap)
         } catch (Throwable t) {

@@ -48,6 +48,8 @@ class QueriesResourceService implements QueriesResource {
     @Override
     QueryResult runQuery(QueryDefinition definition,
                          String username) throws InvalidRequestException {
+						 
+						 
         // 1. Populate qt_query_master
         QtQueryMaster queryMaster = new QtQueryMaster(
             name           : definition.name,
@@ -100,7 +102,6 @@ class QueriesResourceService implements QueriesResource {
 
             sql = patientSetQueryBuilderService.buildPatientSetQuery(
                     resultInstance, definition, tryLoadingUser(username))
-
             sessionFactory.currentSession.doWork ({ Connection conn ->
                 def statement = conn.prepareStatement(sql)
                 setSize = statement.executeUpdate()
