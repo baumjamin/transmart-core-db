@@ -42,6 +42,7 @@ class TerminalClinicalVariablesTabularResult extends
     public static final int TEXT_VALUE_COLUMN_INDEX   = 3
     public static final int NUMBER_VALUE_COLUMN_INDEX = 4
 	public static final int START_DATE_COLUMN_INDEX = 5
+	public static final int INSTANCE_NUM_COLUMN_INDEX = 6
 
     /* XXX: this class hierarchy needs some refactoring, we're depending on
      * implementation details of CollectingTabularResults and skipping quite
@@ -130,10 +131,10 @@ class TerminalClinicalVariablesTabularResult extends
                 return
             }
             Object[] rawRow = (Object[])rawRowUntyped
-			log.warn("RAWROW")
-			rawRow.each {
-				println it
-			}
+//			log.warn("RAWROW")
+//			rawRow.each {
+//				println it
+//			}
             /* find out the position of this concept in the final result */
             Integer index = codeToIndex[rawRow[CODE_COLUMN_INDEX] as String]
             if (index == null) {
@@ -154,8 +155,8 @@ class TerminalClinicalVariablesTabularResult extends
             transformedData[index] = getVariableValue(rawRow)
 			transformedData[index+1] = getStartDate(rawRow)
 			
-			log.warn(index + " transformedData[index] " +transformedData[index])
-			log.warn(" transformedData[index] " + (transformedData[index+1] as String))
+//			log.warn(index + " transformedData[index] " +transformedData[index])
+//			log.warn(" transformedData[index] " + (transformedData[index+1] as String))
         }
 
         new PatientIdAnnotatedDataRow(
